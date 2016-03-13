@@ -132,7 +132,7 @@ the _value_ of an _identity_ at a given moment in _time_
   initialState = []
   const users = ( state = initialState, action ) => {
 
-    if ( type === 'ADD_USER_TO_AUTH' ) {
+    if ( action.type === 'ADD_USER_TO_AUTH' ) {
 
       const { email, password } = action
       return state.concat([{ email, password }])
