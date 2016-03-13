@@ -54,7 +54,7 @@ const [ ponies, jumprope ] = arr   // ponies  = 'a', jumprope = 'b'
 # some fundamental concepts #
 #############################
 
-what are... value, entity, time, state
+what are... value, identity, time, state
 // source: http://www.infoq.com/presentations/Datomic-Database-Value
 
 VALUE
