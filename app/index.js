@@ -143,7 +143,7 @@ the _value_ of an _identity_ at a given moment in _time_
 
   STORE
 
-  const store = createStore(auth)
+  const store = createStore(users)
 
   const user = { email: 'a@b.com', password: 'asdf' }
   store.dispatch( addUserToUsers(user) )
