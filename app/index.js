@@ -50,39 +50,71 @@ const arr = [ 'a', 'b', 'c' ]
 const [ unicorn ] = arr            // unicorn = 'a'
 const [ ponies, jumprope ] = arr   // ponies  = 'a', jumprope = 'b'
 
-VALUE
-42
-[ a, b, c ] => [ a, b, c, d ]
-concat [ a, b, c ] [ d ] => [ a, b, c, d ]
+#############################
+# some fundamental concepts #
+#############################
 
-ENTITY
-[ a collection of values ]
-  with which we associate a sense of continuity through time,
-  often associated with a word,
-    though it is not that word
+what are... value, entity, time, state
+// source: http://www.infoq.com/presentations/Datomic-Database-Value
+
+VALUE
+
+an immutable magnitude, quantity, or number, or a composite thereof
 
   , e.g.,
 
-  New York Yankees: {                                                in this collection,
-    1937 : [ { some: 'player' }, { some: 'other_player' } ],      <- each year contains a collection
-    2000 : [ { another: 'player' }, { another: 'other_player' } ]    of distinct values with which
-  }                                                                  we associate the notion of the
-                                                                     New York Yankees, an "entity"
-                                                                     that persists continually through
-                                                                     time
+  42 does not "become" 43 by "changing" 42.
+  rather, the function (+) takes 2 or more values as arguments and returns a third value.
+  (+ 42 1) => 43
+
+  similarly, the collection [ a, b, c ] does not "become" [ a, b, c, d ] by "changing" [ a, b, c].
+  rather, the function (concat) takes 2 or more collections and concatenates them, returning a third collection.
+  (concat [ a, b, c ] [ d ]) => [ a, b, c, d ]
+
+
+IDENTITY
+
+a putative entity we associate with a series of causally related values over time
+
+an idea in our head, usually associated with a name, though it is not the name, that we connect
+to a series of causally related things over time
+
+  , e.g.,
+
+  New York Yankees
+  over time, ^ represents a different team, but we still refer to each team as "The Yankees"
+
+  Rivers - same deal.
+    "The river up and the river down are one in the same." - Heraclitus,
+    but you also never step in the same river twice.
+
+identity is independent of state
+
+  , e.g.,
+
+  a roster
+  contains different at different points in time,
+  yet the same identity of "Yankees" is applied to each of these values
+
+
 TIME
-a [ before, after ] ordering of events
-  with which we associate a [ cause, effect ] relationship
+
+a relative before/after ordering of causal values
+
 
 STATE
-the _value_ of an _entity_ at a given moment in _time_
+
+the _value_ of an _identity_ at a given moment in _time_
 
   , e.g.,
 
   the _state_ of the New York Yankees in 1937 was
     [ { some: 'player' }, { some: 'other_player' } ]
 
-# react redux:
+
+###############
+# react redux #
+###############
 
   const email = 'some@email.com'
   const password = 'some_password'
@@ -122,7 +154,9 @@ the _value_ of an _entity_ at a given moment in _time_
   store.getState() // => { users: [ { email: 'a@b.com', password: 'asdf' },
                    //               { email: 'c@d.com', password: 'qwer' } ] }
 
-HIGHER ORDER FUNCTIONS: functions that take other functions as arguments or return other functions
+HIGHER ORDER FUNCTIONS
+
+functions that take other functions as arguments or return other functions
 
 const addition = (a) => (b) => (a + b)
 const subtraction = (someLibrary) => (a) => (b) => (someLibrary(a)(0 - b))
