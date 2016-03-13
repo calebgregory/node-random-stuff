@@ -1,16 +1,16 @@
-const func = () => new Promise(
+const func = (obj) => new Promise(
   (resolve, reject) => {
-    if (!obj) return reject(new Error('obj didn\'t exist'))
+    if (!obj) return reject(new Error(`obj didn't exist`))
     return resolve(obj)
   })
 
 
-func()
+func({ a: 'b' })
   .then(
     result => result, // { a: 'b' }
     error => error
   ).catch(
-    error => console.error(error) // => 'obj didn't exist'
+    error => console.error(error) // if an error thrown, => `obj didn't exist`
   )
 
 
