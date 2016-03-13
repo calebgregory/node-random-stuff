@@ -33,44 +33,77 @@ const register = ({ email, password }) => { // user = { email: 'some@email.com',
     )
 }
 
+OBJECT.ASSIGN
+
+const obj = { a: 'b' }
+Object.assign({}, obj, { c: 'd' }) // => { a: 'b', c: 'd' }
+Object.assign({}, obj, { a: 'd' }) // => { a: 'd' }
+
+OBJECT DESTRUCTURING
+
 const obj = { a: { b: { c: 'd' } } }
+const { a: { b: {c} } } = obj      // c = 'd'
 
-const { a: { b: {c} } } = obj // c = 'd'
+ARRAY DESTRUCTURING
 
-value
+const arr = [ 'a', 'b', 'c' ]
+const [ unicorn ] = arr            // unicorn = 'a'
+const [ ponies, jumprope ] = arr   // ponies  = 'a', jumprope = 'b'
+
+VALUE
 42
 [ a, b, c ] => [ a, b, c, d ]
 concat [ a, b, c ] [ d ] => [ a, b, c, d ]
 
-entity
+ENTITY
+[ a collection of values ]
+  with which we associate a sense of continuity through time,
+  often associated with a word,
+    though it is not that word
 
-time
+  , e.g.,
 
-state: the _value_ of an _entity_ at a given moment in _time_
+  New York Yankees: {                                                in this collection,
+    1937 : [ { some: 'player' }, { some: 'other_player' } ],      <- each year contains a collection
+    2000 : [ { another: 'player' }, { another: 'other_player' } ]    of distinct values with which
+  }                                                                  we associate the notion of the
+                                                                     New York Yankees, an "entity"
+                                                                     that persists continually through
+                                                                     time
+TIME
+a [ before, after ] ordering of events
+  with which we associate a [ cause, effect ] relationship
+
+STATE
+the _value_ of an _entity_ at a given moment in _time_
+
+  , e.g.,
+
+  the _state_ of the New York Yankees in 1937 was
+    [ { some: 'player' }, { some: 'other_player' } ]
 
 # react redux:
-
-  initialState = {}
 
   const email = 'some@email.com'
   const password = 'some_password'
 
   ACTION
 
-  const addUserToAuth = () => ({
-    type: ADD_USER_TO_AUTH,
+  const addUserToUsers = () => ({
+    type: ADD_USER_TO_USERS,
     email,
     password
   })
 
   REDUCER
 
-  const auth = ( state = initialState, action ) => {
+  initialState = []
+  const users = ( state = initialState, action ) => {
 
     if ( type === 'ADD_USER_TO_AUTH' ) {
 
       const { email, password } = action
-      return Object.assign({}, state, { email, password })
+      return state.concat([{ email, password }])
 
     }
 
@@ -78,13 +111,28 @@ state: the _value_ of an _entity_ at a given moment in _time_
 
   STORE
 
-  dispatch(addUserToAuth())
-  getState()
-
   const store = createStore(auth)
 
-  {}
+  const user = { email: 'a@b.com', password: 'asdf' }
+  store.dispatch( addUserToUsers(user) )
+  store.getState() // => { users: [ { email:'a@b.com', password: 'asdf' } ] }
 
-const obj = { a: 'b' }
-Object.assign(obj, { a: 'd' }) // => { a: 'd' }
+  const anotherUser = { email: 'c@d.com', password: 'qwer' }
+  store.dispatch( addUserToUsers(anotherUser) )
+  store.getState() // => { users: [ { email: 'a@b.com', password: 'asdf' },
+                   //               { email: 'c@d.com', password: 'qwer' } ] }
 
+HIGHER ORDER FUNCTIONS: functions that take other functions as arguments or return other functions
+
+const addition = (a) => (b) => (a + b)
+const subtraction = (someLibrary) => (a) => (b) => (someLibrary(a)(0 - b))
+
+subtraction(addition)(1)(2) // => -1
+// OR,
+subtraction = (a) => (b) => addition(a)(0 - b)
+subtraction(1)(2)           // => -1
+
+this style of using functions is called CURRYING.
+
+([1,2,3]).map((el) => el + 1)
+(map %(+ 1 %) [1 2 3]) // <- clojure
