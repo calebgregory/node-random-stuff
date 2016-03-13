@@ -1,3 +1,5 @@
+CALLBACK PATTERN VS. PROMISES
+
 const func = (obj) => new Promise(
   (resolve, reject) => {
     if (!obj) return reject(new Error(`obj didn't exist`))
@@ -15,7 +17,7 @@ func({ a: 'b' })
 
 
 function doSomethingAsync(data, cb) {
-  // some processing or API call or async action
+  // some async work, e.g., make an API call
   return cb(null, data)
 }
 
@@ -26,12 +28,45 @@ function newFunc(error, data) {
 
 dosomethingAsync({a : 'b'}, newFunc)
 
-const register = ({ email, password }) => { // user = { email: 'some@email.com', password: 'some_password' }
-  return createUser(email, password)
+function doSomethAsyncWithPromise(data) {
+  return new Promise((resolve, reject) => {
+    // some async work, e.g., make an API call, then
+    if (error) return reject(error)
+    return resolve(data)
+  })
+}
+
+function newFuncWithPromise(data) {
+  // do something with data
+}
+
+function handleError(error) {
+  return console.error(error)
+}
+
+doSomethingAsyncWithPromise(data)
+  .then(
+    result => newFuncWithPromise(result)
+  ).catch(
+    error => handleError(error)
+  )
+
+// OR
+
+doSomethingAsyncWithPromise(data)
+  .then(
+    newFuncWithPromise
+  ).catch(
+    handleError
+  )
+
+// , e.g.,
+
+const register = ({ email, password }) => // user = { email: 'some@email.com', password: 'some_password' }
+  createUser(email, password)
     .then(
       () => loginUser(email, password)
     )
-}
 
 OBJECT.ASSIGN
 
