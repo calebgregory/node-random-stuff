@@ -204,4 +204,4 @@ subtraction(1)(2)           // => -1
 this style of using functions is called CURRYING.
 
 ([1,2,3]).map((el) => el + 1)
-(map %(+ 1 %) [1 2 3]) // <- clojure
+(map #(+ 1 %) [1 2 3]) // <- clojure
