@@ -29,7 +29,7 @@ crypto.getCiphers().filter(alg => alg.indexOf('des') > -1).forEach(alg => {
   console.log(`alg: [${alg}] ; hashedKey: [false] ; encoded: [${encoded2}] ; same?: [${encrypted.toString('base64') === encoded2}]`)
 })
 
-// sweet - testing decipher ...
+// testing decipher ...
 const decipher = crypto.createDecipher('des-ede', notHashedKey)
 
 let decoded = decipher.update(_encrypted, 'base64', 'utf8')
